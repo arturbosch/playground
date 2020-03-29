@@ -9,6 +9,17 @@ class DefaultSuffixArray(
     override val sortedSuffixArray: IntArray = saAlgorithm.sa(text)
     override val longestCommonPrefixes: IntArray = lcpAlgorithm.lcp(text, sortedSuffixArray)
 
+    override fun lrs(): String {
+        if (text.isEmpty()) {
+            return ""
+        }
+        val (index, lcp) = longestCommonPrefixes.withIndex().maxBy { it.value }!!
+        return buildString {
+            sortedSuffixArray[index].until(sortedSuffixArray[index] + lcp)
+                .forEach { append(text[it].toChar()) }
+        }
+    }
+
     override fun toString(): String = buildString(text.size) {
         append("------i------SA------LCP---Suffix\n")
         for (i in 0.until(text.size)) {

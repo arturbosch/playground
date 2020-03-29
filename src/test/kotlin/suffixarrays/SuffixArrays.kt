@@ -37,6 +37,7 @@ internal class SuffixArrays {
         )
 
         println(sa)
+        println(sa.lrs())
     }
 }
 
