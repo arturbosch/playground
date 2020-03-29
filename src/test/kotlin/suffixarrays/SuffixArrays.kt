@@ -21,7 +21,10 @@ internal class SuffixArrays {
     }
 
     @Test
-    fun `suffix array constructed with naive algorithm`() {
+    fun `kasai algorithm`() {
+        val sa = intArrayOf(9, 8, 5, 6, 3, 0, 7, 4, 2, 1)
+        val lcp = KasaiAlgorithm().lcp(text, sa)
+        expect(lcp.contentToString()).toBe("[0, 1, 2, 1, 4, 2, 0, 3, 2, 1]")
     }
 }
 
