@@ -15,6 +15,12 @@ internal class SuffixArrays {
     }
 
     @Test
+    fun `double prefix algorithm`() {
+        val sa = PrefixDoublingAlgorithm().sa(text)
+        expect(sa.contentToString()).toBe("[9, 8, 5, 6, 3, 0, 7, 4, 2, 1]")
+    }
+
+    @Test
     fun `suffix array constructed with naive algorithm`() {
     }
 }
