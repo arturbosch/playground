@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test
 
 internal class SAPerformance {
 
-    private val text = "abaababbabbb".toIntArray()
+    private val text = "abaababbabbbsadasddssadnasbdasbdbasndasndnasdbna".toIntArray()
 
     @Test
     fun performance() {
@@ -23,5 +23,30 @@ internal class SAPerformance {
             println("time: $time ms")
         }
 
+        run {
+            val (time, sa) = measureAndReturn {
+                DefaultSuffixArray(
+                    text,
+                    NaiveSuffixArrayAlgorithm(),
+                    KasaiAlgorithm()
+                )
+            }
+            println("Naive algorithm")
+            println(sa)
+            println("time: $time ms")
+        }
+
+        run {
+            val (time, sa) = measureAndReturn {
+                DefaultSuffixArray(
+                    text,
+                    PrefixDoublingAlgorithm(),
+                    KasaiAlgorithm()
+                )
+            }
+            println("PrefixDoubling algorithm")
+            println(sa)
+            println("time: $time ms")
+        }
     }
 }

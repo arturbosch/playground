@@ -6,7 +6,8 @@ import org.junit.jupiter.api.Test
 
 internal class SuffixArrays {
 
-    private val text = "ABBABAABAA".toIntArray()
+    val content = "ABBABAABAA"
+    private val text = content.toIntArray()
 
     @Test
     fun `naive algorithm`() {
@@ -25,6 +26,17 @@ internal class SuffixArrays {
         val sa = intArrayOf(9, 8, 5, 6, 3, 0, 7, 4, 2, 1)
         val lcp = KasaiAlgorithm().lcp(text, sa)
         expect(lcp.contentToString()).toBe("[0, 1, 2, 1, 4, 2, 0, 3, 2, 1]")
+    }
+
+    @Test
+    fun `suffix array`() {
+        val sa = DefaultSuffixArray(
+            text,
+            PrefixDoublingAlgorithm(),
+            KasaiAlgorithm()
+        )
+
+        println(sa)
     }
 }
 
