@@ -2,6 +2,7 @@ plugins {
     groovy
     java
     kotlin("jvm") version "1.3.70"
+    `maven-publish`
 }
 
 group = "io.gitlab.arturbosch"
@@ -9,6 +10,7 @@ version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
+    mavenLocal()
     maven { setUrl("https://dl.bintray.com/arturbosch/generic") }
 }
 
@@ -30,4 +32,28 @@ tasks.test {
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
+}
+
+val sourcesJar by tasks.creating(Jar::class) {
+    dependsOn(tasks.classes)
+    archiveClassifier.set("sources")
+    from(sourceSets.main.get().allSource)
+}
+
+val javadocJar by tasks.creating(Jar::class) {
+    from(tasks.javadoc)
+    archiveClassifier.set("javadoc")
+}
+
+artifacts {
+    archives(sourcesJar)
+    archives(javadocJar)
+}
+
+publishing {
+    publications.register<MavenPublication>("PlaygroundPublication") {
+        from(components["java"])
+        artifact(sourcesJar)
+        artifact(javadocJar)
+    }
 }
