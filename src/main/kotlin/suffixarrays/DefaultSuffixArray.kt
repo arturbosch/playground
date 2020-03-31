@@ -2,8 +2,8 @@ package suffixarrays
 
 class DefaultSuffixArray(
     override val text: IntArray,
-    saAlgorithm: SuffixArrayAlgorithm,
-    lcpAlgorithm: LongestCommonPrefixAlgorithm
+    saAlgorithm: SuffixArrayAlgorithm = PrefixDoublingAlgorithm(),
+    lcpAlgorithm: LongestCommonPrefixAlgorithm = KasaiAlgorithm()
 ) : SuffixArray {
 
     override val sortedSuffixArray: IntArray = saAlgorithm.sa(text)
